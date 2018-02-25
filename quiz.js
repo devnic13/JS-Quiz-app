@@ -1,6 +1,6 @@
 class Quiz{
     constructor(questions) {
-     this.questions = questions;
+      this.questions = questions;
     }
 
     buildQuiz() {
@@ -26,39 +26,43 @@ class Quiz{
         qNum++;
         container.innerHTML = output.join('');
         });
+
+
       }
-    }
-    /*function scoreQuiz() {
-    
-      let choices = document.querySelectorAll('input[type="radio"]:checked');
+
+      scoreQuiz() {
+
+        let choices = document.querySelectorAll('input[type="radio"]:checked');
+        
+  
+        choices.forEach( choice => {
+            choice.disabled = true;
+            choice.parentNode.classList.add('checked');
+          }
+        );
+  
+        let userAnswers = [];
+        let numCorrect = 0;
       
-
-      choices.forEach( choice => {
-          choice.disabled = true;
-          choice.parentNode.classList.add('checked');
+        for(let i = 0; i < choices.length; i++) {
+            if(choices[i].checked) {
+              userAnswers.push(choices[i].value)
+          }
         }
-      );
-
-      let userAnswers = [];
-      let numCorrect = 0;
-    
-      for(let i = 0; i < choices.length; i++) {
-          if(choices[i].checked) {
-            userAnswers.push(choices[i].value)
-        }
-      }
-
-      choices.forEach( (choice, i) => {
-        if(choice.value === this.questions[i].correct) {
-          choice.parentNode.classList.add('correct');
-          numCorrect++;
-          
-        }
-      });
-
-    
-  document.querySelector('#results').innerHTML = `${numCorrect} out of ${questions.length}`
-*/   
+  
+        console.log(this.questions);
+        choices.forEach( (choice, i) => {
+          if(choice.value === this.questions[i].correct) {
+            choice.parentNode.classList.add('correct');
+            numCorrect++;  
+          }
+        });
+  
+      
+    document.querySelector('#results').innerHTML = `${numCorrect} out of ${questions.length}`
+  }
+}
+/*function */   
     
 let questions = [
   {
@@ -164,5 +168,7 @@ let jsQuiz = new Quiz(questions);
 
 jsQuiz.buildQuiz()
  
-document.getElementById('submit').addEventListener('click', jsQuiz.scoreQuiz)
+document.getElementById('submit').addEventListener('click', function() {
+  jsQuiz.scoreQuiz();
+})
     //}
