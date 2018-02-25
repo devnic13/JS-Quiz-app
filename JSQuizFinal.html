@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html>
+        <head>
+        <H1>How well do you know Lisa?</H1> 
+        
+      </head>  
+<body>
+    <div id="quiz">
+      <p id ='buildQuiz'>QUIZ</p></div>
+
+
+    <div id="results"></div> 
+
+<script>
+
+class Question {
+    constructor(question, choices, correct) {
+        this.question = question;
+        this.choice = choice;
+        this.correct = correct;
+}
+}
+class Quiz{
+    constructor(questions) {
+     this.questions = questions;
+ }
+}
+const quizContainer = document.getElementById('quiz');
+const resultsContainer = document.getElementById('results');
+const submitButton = document.getElementById('submit');  
+let questions = [
+  {
+     question: 'What year did Lisa graduate from college?',
+   choices: {
+        a: '1963',
+        b: '2005',
+        c: '1984',
+        d: '2013'
+   }, correct: 'c'
+ },
+     {
+     question: 'How many times did Lisa move before she was 19?',
+   choices: {
+        a: 'Less than two',
+        b: 'Over five',
+        c: 'Not at all',
+        d: 'More than 15'
+   }, 
+        correct: 'd'
+ },
+     {
+     question: 'In which branch of military service did Lisa serve?',
+   choices: {
+        a: 'USMC',
+        b: 'USAF',
+        c: 'Coast Guard',
+        d: 'Army'
+   },   correct: 'b'
+ },
+     {
+     question: 'Which profession does NOT belong?',
+   choices: {
+        a: 'Networking Engineer',
+        b: 'Sales Technical Instructor',
+        c: 'Targets Intelligence',
+        d: 'Toy Store Manager',
+        e: 'Technical Writer'
+   },   correct: 'a'
+ },
+     {
+     question: 'Which country has Lisa NOT lived in?',
+   choices: {
+        a: 'Germany',
+        b: 'Canada',
+        c: 'Iran',
+        d: 'Iraq',
+        e: 'South Korea'
+   },   correct: 'd'
+ },
+     {
+     question: 'How many children does Lisa have?',
+   choices: {
+        a: 'None',
+        b: 'Two boys and a girl',
+        c: 'Four girls',
+        d: 'Four boys',
+        e: 'One girl'
+   },   correct: 'c'
+ },
+     {
+     question: 'What are the ages of her children?',
+   choices: {
+        a: '12, 13, 20, 29',
+        b: 'No kids',
+        c: '27, 28, 29',
+        d: '12',
+        e: '5, 9, 15, 30'
+   },   correct: 'a'
+ },
+     {
+     question: 'Which of the following is NOT true?',
+   choices: {
+        a: 'Lisa has driven a Soviet tank',
+        b: 'Lisa has flown in a helicopter',
+        c: 'Lisa has visited Pompeii',
+        d: 'Lisa has won the lottery',
+        e: 'Lisa has visited Panama'
+   },   correct: 'e'
+ },
+      {
+     question: 'How many cats does Lisa have?',
+   choices: {
+        a: 'None, she hates cats',
+        b: 'One spoiled cat',
+        c: 'Two spoiled cats',
+        d: 'Six spoiled cats',
+        e: 'Twelve ignored cats'
+   },   correct: 'd'
+ },
+      {
+     question: 'How much fun did Lisa have with this quiz?',
+   choices: {
+        a: 'None',
+        b: 'Too much',
+        c: 'Not enough',
+        d: 'Just enough',
+   },   correct: 'b'
+ },
+
+ (function() {
+  function buildQuiz() {
+    // we'll need a place to store the HTML output
+    const output = [];
+
+    // for each question...
+    Question.forEach((currentQuestion, questionNumber) => {
+      // we'll want to store the list of answer choices
+      const answers = [];
+
+      // and for each available answer...
+      for (letter in currentQuestion.answers) {
+        // ...add an HTML radio button
+        answers.push(
+          `<label>
+            <input type="radio" name="question${questionNumber}" value="${letter}">
+            ${letter} :
+            ${currentQuestion.answers[letter]}
+          </label>`
+        );
+      }
+
+      // add this question and its answers to the output
+      output.push(
+        `<div class="question"> ${currentQuestion.question} </div>
+        <div class="answers"> ${answers.join("")} </div>`
+      );
+    });
+
+    // finally combine our output list into one string of HTML and put it on the page
+    quizContainer.innerHTML = output.join("");
+  }
+/*buildQuiz() 
+{
+     let container = document.querySelector('#quizContainer');
+     let output = [];
+   
+   this.questions.forEach(function(question) {
+       let p = `<p>${question.question}</p>`;
+       
+       for(let choice in question.choices) {
+         p += `${choice}: ${question.choices[choice]} <input type="radio" value="${choice}" name="question" />`
+       }
+        output.push(p)
+       
+   })
+   
+  container.innerHTML = output.join('');
+*/
+  scoreQuiz () 
+  {
+      let choices = document.querySelectorAll('input[type="radio"]');
+   let userAnswers = [];
+     let numCorrect = 0;
+   for(let i = 0; i < choices.length; i++) {
+       if(choices[i].checked) {
+         userAnswers.push(choices[i].value)
+     }
+   }
+   for(let i = 0; i < userAnswers.length; i++) {
+       if(userAnswers[i] === this.questions[i].correct) {
+         numCorrect++
+     }
+   }
+   document.querySelector('#score').innerHTML = `${numCorrect} out of ${this.questions.length}`
+  }
+]
+let jsQuiz = new Quiz(questions);
+
+jsQuiz.buildQuiz()
+
+document.getElementById('button').addEventListener('click', jsQuiz.scoreQuiz.bind(jsQuiz))
+
+</script>
+<button id="submit">Submit Quiz</button>
+</body>
+</html>
