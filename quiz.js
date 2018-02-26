@@ -50,7 +50,7 @@ class Quiz{
           }
         }
   
-        console.log(this.questions);
+        //console.log(this.questions);
         choices.forEach( (choice, i) => {
           if(choice.value === this.questions[i].correct) {
             choice.parentNode.classList.add('correct');
@@ -62,7 +62,7 @@ class Quiz{
     document.querySelector('#results').innerHTML = `${numCorrect} out of ${questions.length}`
   }
 }
-/*function */   
+  
     
 let questions = [
   {
@@ -171,4 +171,4 @@ jsQuiz.buildQuiz()
 document.getElementById('submit').addEventListener('click', function() {
   jsQuiz.scoreQuiz();
 })
-    //}
+  
